@@ -1,0 +1,289 @@
+/* --------------------------------------------------
+   1. CORE ENGINE VARIABLES & ACENT SYSTEM
+-------------------------------------------------- */
+:root {
+    --bg-base: #090D16;
+    --bg-surface: #111827;
+    --bg-panel: #1F2937;
+    --border-low: #374151;
+    --border-high: #4B5563;
+    --text-main: #F9FAFB;
+    --text-muted: #9CA3AF;
+    --accent: #2563EB;
+    --accent-glow: rgba(37, 99, 235, 0.2);
+    --success: #10B981;
+    --danger: #EF4444;
+    --danger-bg: #2A1215;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+/* --------------------------------------------------
+   2. RE-ENGINEERED CONTAINER FRAMEWORK
+-------------------------------------------------- */
+.app-container {
+    width: 100vw;
+    min-height: 100vh;
+    padding: 24px;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    gap: 24px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--border-low);
+    grid-column: 1 / -1;
+}
+
+/* --------------------------------------------------
+   3. RESPONSIVE DASHBOARD LAYOUT GRID
+-------------------------------------------------- */
+/* Desktop Dashboard Layout Matrix */
+@media (min-width: 1024px) {
+    .app-container {
+        grid-template-columns: 380px 1fr;
+        padding: 32px;
+    }
+    
+    .left-control-column {
+        grid-column: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .right-workspace-column {
+        grid-column: 2;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+}
+
+/* Fallback Structure for Single-Column Viewports (Mobile/Tablet) */
+@media (max-width: 1023px) {
+    .app-container {
+        grid-template-columns: 1fr;
+        padding: 16px;
+    }
+}
+
+/* --------------------------------------------------
+   4. COMPONENT ARCHITECTURE
+-------------------------------------------------- */
+.control-group, .workspace-group {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-low);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: var(--text-muted);
+}
+
+select, input[type="text"], input[type="password"], textarea {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-low);
+    color: var(--text-main);
+    border-radius: 8px;
+    padding: 14px;
+    font-size: 0.95rem;
+    outline: none;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    width: 100%;
+}
+
+select:focus, input:focus, textarea:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px var(--accent-glow);
+    background-color: var(--bg-base);
+}
+
+textarea {
+    resize: vertical;
+    flex-grow: 1;
+    min-height: 200px;
+    font-family: "Fira Code", "Courier New", Courier, monospace;
+    font-size: 0.9rem;
+}
+
+/* --------------------------------------------------
+   5. METRICS TELEMETRY HOOK PANEL
+-------------------------------------------------- */
+.metrics-display {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-low);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.metrics-display p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#tokenDisplay {
+    border-bottom: 1px solid var(--border-low);
+    padding-bottom: 12px;
+}
+
+#lifetimeDisplay, #lifetimeTokensDisplay {
+    color: var(--success) !important;
+    font-weight: 600;
+}
+
+/* --------------------------------------------------
+   6. INTERACTION ENGINE TARGETS
+-------------------------------------------------- */
+#sendBtn {
+    background-color: var(--accent);
+    color: #FFFFFF;
+    border: none;
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: transform 0.1s ease, background-color 0.2s ease;
+    width: 100%;
+}
+
+#sendBtn:hover {
+    filter: brightness(1.1);
+}
+
+#sendBtn:active {
+    transform: scale(0.98);
+}
+
+#sendBtn:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+    transform: none;
+}
+
+/* --------------------------------------------------
+   7. LIVE AI FEEDBACK OUTPUT INTERFACE
+-------------------------------------------------- */
+#responseContainer {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+#responseText {
+    background-color: var(--bg-panel);
+    border: 1px solid var(--border-low);
+    color: var(--text-main);
+    padding: 20px;
+    border-radius: 8px;
+    font-size: 1rem;
+    line-height: 1.6;
+    white-space: pre-wrap;
+    flex-grow: 1;
+    overflow-y: auto;
+}
+
+#errorAlert {
+    background-color: var(--danger-bg);
+    border: 1px solid var(--danger);
+    color: var(--danger);
+    border-radius: 8px;
+    padding: 16px;
+    font-size: 0.95rem;
+    font-weight: 500;
+}
+
+/* --------------------------------------------------
+   8. SECURE AUTHORIZATION PIPELINE OVERLAY
+-------------------------------------------------- */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(4, 6, 10, 0.85);
+    backdrop-filter: blur(8px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    padding: 16px;
+}
+
+.modal-card {
+    background-color: var(--bg-surface);
+    border: 1px solid var(--border-high);
+    border-radius: 14px;
+    padding: 28px;
+    width: 100%;
+    max-width: 460px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 12px;
+    justify-content: flex-end;
+}
+
+.modal-actions button {
+    border: none;
+    padding: 12px 20px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#cancelAuthBtn {
+    background-color: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border-low);
+}
+
+#cancelAuthBtn:hover {
+    background-color: var(--bg-panel);
+    color: var(--text-main);
+}
+
+#confirmSendBtn {
+    background-color: var(--success);
+    color: #FFFFFF;
+}

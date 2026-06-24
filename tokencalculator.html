@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Enterprise Token Cost Gateway</title>
+    <link rel="stylesheet" href="tokencalculator.css">
+</head>
+<body>
+
+<div class="app-container">
+    <h2>LLM Token & Cost Control Tower</h2>
+    
+    <div class="left-control-column">
+        <div class="control-group">
+            <label for="providerSelect">Core Provider</label>
+            <select id="providerSelect">
+                <option value="openai">OpenAI Architecture</option>
+                <option value="anthropic">Anthropic Infrastructure</option>
+                <option value="gemini">Google Gemini Core</option>
+                <option value="custom">Custom Proxy Override</option>
+            </select>
+        </div>
+
+        <div class="control-group" id="modelDiv">
+            <label for="modelSelect">Target Model:</label>
+            <select id="modelSelect">
+                <option value="openai/gpt-4o-mini">GPT-4o Mini</option>
+                <option value="openai/gpt-4o">GPT-4o Standard</option>
+                <option value="openai/gpt-5.5">GPT-5.5 Frontier</option>
+            </select>
+        </div>
+
+        <div id="customUrlContainer" class="control-group" style="display: none;">
+            <label for="urlInput">Custom Gateway Base URL</label>
+            <input id="urlInput" type="text" placeholder="e.g., https://openrouter.ai/api/v1/chat/completions">
+        </div>
+
+        <div class="metrics-display">
+            <p id="tokenDisplay">Estimated Cost: $0.000000 | Estimated Tokens: 0</p>
+            <p id="lifetimeDisplay" style="margin-top: 10px;">Lifetime Cost: $0.000000</p>    
+            <p id="lifetimeTokensDisplay" style="margin-top: 5px;">Lifetime Tokens Processed: 0</p>
+        </div>
+    </div>
+
+    <div class="right-workspace-column">
+        <div class="workspace-group">
+            <label for="tokenInput">Payload Context Buffer</label>
+            <textarea id="tokenInput" placeholder="Paste structural data arrays, application logs, or prompts here..."></textarea>
+        </div>
+
+        <button id="sendBtn">Dispatch Network Payload</button>
+
+        <div id="errorAlert" style="display: none; margin-top: 15px;"></div>
+
+        <div class="workspace-group" id="responseContainer" style="display: none; margin-top: 20px;">
+            <label>AI Assistant Response Pipeline</label>
+            <div id="responseText"></div>
+        </div>
+    </div>
+
+    <div id="authModal" class="modal-overlay" style="display: none;">
+        <div class="modal-card">
+            <h3>Pipeline Authentication Required</h3>
+            <p>Please provide your secure API Bearer Key to execute this transaction over the wire.</p>
+            <input id="keyInput" type="password" placeholder="Enter API Key (sk-...)">
+            <div class="modal-actions">
+                <button id="cancelAuthBtn">Abort Dispatch</button>
+                <button id="confirmSendBtn">Authorize & Execute</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="tokencalculator.js"></script>
+</body>
+</html>
